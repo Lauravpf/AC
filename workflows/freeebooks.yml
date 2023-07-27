@@ -1,0 +1,22 @@
+on:
+  rss:
+    url:
+    - https://alexstshiu.blogspot.com/feeds/posts/default
+    - https://www.cup.com.hk/author/chip/feed
+    - https://hypothes.is/stream.rss?user=KhunTam
+    config:
+      every: "* */6 * * *"
+jobs:
+  telegram:
+    name: Send a telegram message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send a telegram message
+        uses: appleboy/telegram-action@v0.1.0
+        with:
+          to: 786143398
+          token: 1748509976:AAF_dKwGcPRt7wToKrG2AakaB1T8T9_J0pw
+          message: |
+            ${{on.rss.outputs.title}}
+            ${{on.rss.outputs.link}}
+          format: markdown
